@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Owner Dashboard</title>
+  <link rel="stylesheet" href="./css/adminstyle.css" />
+  <!-- Font Awesome Cdn Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <style>
+    /* Custom styles for tables and buttons */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    td button {
+      padding: 5px 10px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    td button:hover {
+      background-color: #d32f2f;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <nav>
+      <!-- Navigation items -->
+      <h3 style="height: fit-content; margin-top: 20px;">Owner Dashboard</h3>
+      <li><a href="#" id="addPropertyLink">
+          <i class="fas fa-sign-out-alt"></i>
+          <span class="nav-item">Add Property</span>
+        </a></li>
+
+      <li><a href="homepage.html" class="logout">
+          <i class="fas fa-sign-out-alt"></i>
+          <span class="nav-item">Log out</span>
+        </a></li>
+
+    </nav>
+
+    <section class="main">
+      <!-- Main section content -->
+      <div id="propertiesData" style="display: block;">
+        <h1>Welcome...</h1>
+        <h3>Your Listed Properties</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Property ID</th>
+              <th>Property Type</th>
+              <th>Location</th>
+              <th>Size</th>
+              <th>Price</th>
+              <th>Assigned Agent Id</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="propertiesTableBody"></tbody>
+        </table>
+      </div>
+      <div class=".main-skills" id="addPropertyForm"
+        style="background-color: rgb(211, 217, 222);display: none; width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #e9efea; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+        <h3>Add New Property</h3>
+        <form id="propertyForm">
+          <div style="margin-bottom: 10px;">
+            <label for="propertyType">Property Type:</label>
+            <input type="text" id="propertyType" name="propertyType" required style="width: 100%;">
+          </div>
+
+          <div style="margin-bottom: 10px;">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required style="width: 100%;">
+          </div>
+
+          <div style="margin-bottom: 10px;">
+            <label for="size">Size:</label>
+            <input type="text" id="size" name="size" required style="width: 100%;">
+          </div>
+
+          <div style="margin-bottom: 10px;">
+            <label for="price">Price:</label>
+            <input type="text" id="price" name="price" required style="width: 100%;">
+          </div>
+
+          <div style="margin-bottom: 10px;">
+            <label for="agentid">AgentID:</label>
+            <input type="text" id="agentid" name="agentid" required style="width: 100%;">
+          </div>
+
+          <div style="margin-bottom: 10px;">
+            <label for="status">Status:</label>
+            <input type="text" id="status" name="status" required style="width: 100%;">
+          </div>
+
+          <button type="submit"
+            style="background-color: rgb(40, 239, 149); color: #000; border: none; padding: 10px 20px; cursor: pointer;">Add
+            Property</button>
+        </form>
+      </div>
+
+
+
+    </section>
+  </div>
+  <!-- Inside the "main" section of owner.html -->
+
+  <!-- Script to handle owner dashboard functionality -->
+  <script>
+    // Function to fetch properties data for the owner
+    function fetchOwnerData(ownerId) {
+      // Fetch properties data
+      fetch(`/ownerdata?ownerId=${ownerId}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log("Received properties data:", data);
+          if (data.propertiesData) {
+            displayProperties(data.propertiesData);
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching properties data:", error);
+        });
+    }
+
+    // Function to display properties in the table
+    function displayProperties(properties) {
+      console.log(properties);
+      const propertiesTableBody = document.getElementById("propertiesTableBody");
+      propertiesTableBody.innerHTML = "";
+      properties.forEach(property => {
+        const row = `
+          <tr>
+            <td>${property.PropertyID}</td>
+            <td>${property.PropertyType}</td>
+            <td>${property.Location}</td>
+            <td>${property.Size}</td>
+            <td>${property.Price}</td>
+            <td>${property.agentid}</td>
+            <td>${property.Status}</td>
+            <td><button onclick="deleteProperty(${property.PropertyID})">Delete</button></td>
+          </tr>
+        `;
+        propertiesTableBody.innerHTML += row;
+      });
+    }
+
+    // Function to delete a property
+    function deleteProperty(propertyId) {
+      fetch("/deleteproperty", {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          propertyId: propertyId
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log("Delete response:", data);
+          // Refresh the data after deletion
+          fetchOwnerData(ownerId); // Assuming ownerId is defined globally or passed as an argument
+        })
+        .catch(error => {
+          console.error("Error deleting property:", error);
+        });
+    }
+
+    // Assuming ownerId is defined globally or passed as an argument
+    // Fetch properties data for the owner on page load
+    const urlParams = new URLSearchParams(window.location.search);
+    const ownerId = urlParams.get('ownerId');
+    fetchOwnerData(ownerId);
+
+
+    document.getElementById("addPropertyLink").addEventListener("click", function () {
+      document.getElementById("addPropertyForm").style.display = "block";
+    });
+
+    document.getElementById("propertyForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const propertyType = document.getElementById("propertyType").value;
+      const address = document.getElementById("address").value;
+      const size = document.getElementById("size").value;
+      const price = document.getElementById("price").value;
+      const agentid = document.getElementById("agentid").value;
+      const status = document.getElementById("status").value;
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const ownerId = urlParams.get('ownerId');
+      fetch('/addproperty', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          propertyType,
+          address,
+          size,
+          price,
+          status,
+          ownerId,
+          agentid
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log("Property added:", data);
+          alert("Property added successfully!");
+          // You can add further actions like refreshing property list, etc.
+        })
+        .catch(error => {
+          console.error("Error adding property:", error);
+          alert("Error adding property. Please try again.");
+        });
+    });
+
+
+  </script>
+</body>
+
+</html>

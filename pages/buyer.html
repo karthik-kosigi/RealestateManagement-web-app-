@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Buyer Dashboard </title>
+  <link rel="stylesheet" href="buyerstyle.css" />
+  <!-- Font Awesome Cdn Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+
+<body onload="setMinDate()">
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="#" class="logo">
+            <img src="/logo.jpg" alt="">
+            <span class="nav-item">Dashboard</span>
+          </a></li>
+        <li><a href="#">
+            <i class="fas fa-home"></i>
+            <span class="nav-item" id="backButton">Home</span>
+          </a></li>
+        <li><a href="#" id="myAppointments">
+            <i class="fas fa-calendar-alt"></i>
+            <span class="nav-item">My Appointments</span>
+          </a></li>
+        <li><a href="homepage.html" class="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="nav-item">Log out</span>
+          </a></li>
+      </ul>
+    </nav>
+
+    <section class="main">
+      <div class="main-top">
+        <h1>Properties</h1>
+        <i class="fas fa-home"></i>
+      </div>
+      <div class="main-properties" id="propertyList">
+        <!-- Properties will be dynamically added here -->
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal for Booking Appointment -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Book Appointment</h2>
+      <form id="appointmentForm">
+        <input type="hidden" id="propertyId" name="propertyId">
+        <input type="hidden" id="agentId" name="agentId">
+        <label for="date">Select Date:</label>
+        <input type="date" id="date" name="date" required>
+        <button type="submit">Confirm Appointment</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/buyer-script.js"></script>
+  <script>
+    // Function to set min date to today's date
+    function setMinDate() {
+      var today = new Date().toISOString().split('T')[0];
+      document.getElementById("date").min = today;
+    }
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Real Estate Management</title>
+  <link rel="icon" href="images/4052984.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+
+<body background="images/house-1836070_1280.jpg" class="bgimg">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Real Estate Management <img src="./Building.png" type="image/jpg"
+          style="height: 50px;"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="homepage.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="register.html">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="adminlogin" href="admin.html">Admin login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h1 class="display-4 mt-5">Welcome to Real Estate Management</h1>
+        <p class="lead mb-5">Find your dream property and discover a new lifestyle.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h2 class="text-center">Explore Properties</h2>
+        <p>Discover a wide range of properties including apartments, villas, condos, and more.</p>
+      </div>
+      <div class="col-md-4">
+        <h2 class="text-center">Find Agents</h2>
+        <p>Connect with experienced real estate agents who can assist you in buying or selling your property.</p>
+      </div>
+      <div class="col-md-4">
+        <h2 class="text-center">Real Estate Trends</h2>
+        <p>Stay updated with the latest real estate trends and market insights to make informed decisions.</p>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <h2 class="text-center">Property Management Services</h2>
+        <p>From property listing and marketing to tenant screening and rent collection, we offer comprehensive property
+          management services.</p>
+      </div>
+      <div class="col-md-6">
+        <h2 class="text-center">Investment Opportunities</h2>
+        <p>Explore lucrative investment opportunities in real estate and build wealth for the future.</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById("adminlogin").addEventListener("click", function () {
+      var password = prompt("Enter Admin Password:");
+      var correctPassword = "admin123"; // Static password
+      if (password === correctPassword) {
+        window.location.href = "admin.html"; // Redirect to admin.html
+      } else {
+        alert("Incorrect password. Please try again.");
+      }
+    });
+  </script>
+</body>
+
+</html>

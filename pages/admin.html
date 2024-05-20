@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="./css/adminstyle.css" />
+  <!-- Font Awesome Cdn Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <style>
+    /* Custom styles for tables and buttons */
+    table {
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 15px;
+      min-width: 100%;
+      overflow: hidden;
+      border-radius: 5px 5px 0 0;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    td button {
+      padding: 5px 10px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    td button:hover {
+      background-color: #d32f2f;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="#" class="logo">
+            <img src="./logo.jpg" alt="dash" type="image/jpg">
+            <span class="nav-item">Dashboard</span>
+          </a></li>
+        <li><a href="#" id="users" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>Users</span>
+          </a></li>
+        <li><a href="#" id="properties" class="nav-item">
+            <i class="fas fa-building"></i>
+            <span>Properties</span>
+          </a></li>
+        <li><a href="#" id="owners" class="nav-item">
+            <i class="fas fa-user-tie"></i>
+            <span>Owners</span>
+          </a></li>
+        <li><a href="#" id="buyers" class="nav-item">
+            <i class="fas fa-user-secret"></i>
+            <span>Buyers</span>
+          </a></li>
+        <li><a href="#" id="agents" class="nav-item">
+            <i class="fas fa-user-secret"></i>
+            <span>Agents</span>
+          </a></li>
+        <li><a href="#" id="appointments" class="nav-item">
+            <i class="far fa-calendar-alt"></i>
+            <span>Appointments</span>
+          </a></li>
+        <li><a href="#" id="transactions" class="nav-item">
+            <i class="far fa-credit-card"></i>
+            <span>Transactions</span>
+          </a></li>
+        <li><a href="homepage.html" class="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="nav-item">Log out</span>
+          </a></li>
+      </ul>
+    </nav>
+
+
+
+    <section class="main">
+      <div class="main-top">
+        <h1>COUNT</h1>
+      </div>
+      <div class="main-skills">
+        <!-- Placeholder for user count -->
+        <div class="card">
+          <h3>Users</h3>
+          <p id="totalCount">Loading...</p>
+        </div>
+
+        <!-- Placeholder for owner count -->
+        <div class="card">
+          <h3>Owners</h3>
+          <p id="ownersCount">Loading...</p>
+        </div>
+        <!-- Placeholder for buyer count -->
+        <div class="card">
+          <h3>Buyers</h3>
+          <p id="buyersCount">Loading...</p>
+        </div>
+        <!-- Placeholder for agent count -->
+        <div class="card">
+          <h3>Agents</h3>
+          <p id="agentsCount">Loading...</p>
+        </div>
+        <!-- Placeholder for appointment count -->
+        <div class="card">
+          <h3>Appointments</h3>
+          <p id="appointmentsCount">Loading...</p>
+        </div>
+        <!-- Placeholder for transaction count -->
+        <div class="card">
+          <h3>Transactions</h3>
+          <p id="transactionsCount">Loading...</p>
+        </div>
+
+      </div>
+      <!-- Tables for data display -->
+      <div id="usersData" style="display: none;">
+        <h3>Users Data</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Username</th>
+              <th>Password</th>
+              <th>User Type</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody"></tbody>
+        </table>
+      </div>
+
+      <div id="propertiesData" style="display: none; margin-top: 100px;">
+        <h3>Properties Data</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Property ID</th>
+              <th>Property Type</th>
+              <th>Location</th>
+              <th>Size</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Owner ID</th>
+              <th>AgentId</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="propertiesTableBody"></tbody>
+        </table>
+      </div>
+      <div id="ownersData" style="display: none; margin-top: 100px;">
+        <h3>Owner Data</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Owner ID</th>
+              <th>Name</th>
+              <th>Contact Information</th>
+              <th>Address</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="ownersTableBody"></tbody>
+        </table>
+      </div>
+      <div id="buyersData" style="display: none; margin-top: 100px;">
+        <h3>Buyer Data</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Buyer ID</th>
+              <th>Name</th>
+              <th>Contact Information</th>
+              <th>Address</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="buyersTableBody"></tbody>
+        </table>
+      </div>
+      <div id="agentsData" style="display: none; margin-top: 100px;">
+        <h3>Agent Data</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Agent ID</th>
+              <th>Name</th>
+              <th>Contact Information</th>
+              <th>Commission Rate</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="agentsTableBody"></tbody>
+        </table>
+      </div>
+      <div id="transactionsData" style="display: none; margin-top: 100px;">
+        <h3>Transaction Data</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Transaction ID</th>
+              <th>Property ID</th>
+              <th>Buyer ID</th>
+              <th>Agent ID</th>
+              <th>Transaction Date</th>
+              <th>Transaction Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="transactionsTableBody"></tbody>
+        </table>
+      </div>
+      <div id="appointmentsData" style="display: none; margin-top: 100px;">
+        <h3>Appointment Data</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Appointment ID</th>
+              <th>Agent ID</th>
+              <th>Buyer ID</th>
+              <th>Property ID</th>
+              <th>Appointment Date</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="appointmentsTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Repeat similar structures for other entities (owners, agents, appointments, transactions) -->
+  </div>
+  </section>
+  </div>
+
+  <script src="/admin-script.js"></script>
+</body>
+
+</html>
